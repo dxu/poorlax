@@ -13,7 +13,9 @@
     "coffee-script": "^1.9.0",
     "coffeeify": "^1.0.0",
     "gulp": "^3.8.11",
+    "gulp-less": "^2.0.1",
     "gulp-util": "^3.0.3",
+    "gulp-watch-less": "^1.0.1",
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^2.3.0"
   }
