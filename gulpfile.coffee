@@ -9,12 +9,14 @@ plumber     = require 'gulp-plumber'
 ###
 # LESS compilation
 ###
-gulp.task 'less', ->
+compile_less = ->
   lessFilePath = "./styles.less"
   gulp.src lessFilePath
     .pipe plumber()
     .pipe less().on('error', gutil.log)
     .pipe gulp.dest("./dist")
+
+gulp.task 'less', compile_less
 
 gulp.task 'default', ->
   ###
@@ -35,4 +37,6 @@ gulp.task 'default', ->
       .pipe source("scripts.js")
       .pipe gulp.dest("./dist")
 
+  # LESS
+  compile_less()
   gulp.watch './*.less', ['less']
