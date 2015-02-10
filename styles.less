@@ -1,13 +1,43 @@
+// scale_factor
+
+// transform: translateZ(-1px) scale(2)
+
+// 1 + (translateZ * -1) / perspective
+
+@perspective: 300px;
+
+#debug-check {
+  position: absolute;
+  top: 0;
+  z-index: 1000;
+}
+
+.transform_factor(@persp, @tranZ) {
+  transform: translateZ(@tranZ) scale(1 + (@tranZ * -1) / @persp);
+}
+
 body, html {
   margin: 0;
   padding: 0;
 }
+
 .parallax {
-  background-color: green;
-  perspective: 1px;
-  height: 100vh;
+  perspective: @perspective;
+  height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+.parallax-group {
+  position: relative;
+  height: 100%;
+  transform-style: preserve-3d;
+  // background-color: green;
+  transition: transform 0.5s;
+
+  &.debug {
+    transform: translate3d(700px, 0, -800px) rotateY(30deg);
+  }
 }
 
 .parallax-layer {
@@ -18,17 +48,39 @@ body, html {
   left: 0;
 }
 
-.layer1 {
-  height: 200vh;
-  line-height: 200vh;
+.layer1, .layer2 {
+}
+
+.layerbackground {
+  @layerbg_trans: -10px;
+  .transform_factor(@perspective, @layerbg_trans);
+
+  height: 800%;
+  line-height: 800%;
   text-align: center;
-  transform: translateZ(-1px) scale(2);
+  background-image: url('../assets/geometry2.png');
+}
+
+.layer1 {
+  @layer1_trans: -5px;
+  .transform_factor(@perspective, @layer1_trans);
+
+  height: 200%;
+  line-height: 200%;
+  text-align: center;
   background-color: yellow;
 }
+
 .layer2 {
-  height: 200vh;
-  line-height: 200vh;
+  @layer1_trans: -3px;
+  .transform_factor(@perspective, @layer1_trans);
+
+  height: 100%;
+  line-height: 100%;
   text-align: center;
-  transform: translateZ(0);
   background-color: red;
+}
+
+.layerbackground {
+
 }
